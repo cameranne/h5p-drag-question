@@ -104,7 +104,7 @@ H5P.DragQuestion = (function ($) {
       }
     }
 
-    // Create a count to subtrack from score
+    // Create a count to subtract from score
     this.numDropZonesWithoutElements = 0;
 
     // Add drop zones
@@ -119,7 +119,7 @@ H5P.DragQuestion = (function ($) {
         this.blankIsCorrect = false;
       }
 
-      this.dropZones[i] = new DropZone(dropZone, i);
+      this.dropZones[i] = new DropZone(dropZone, i);  
     }
 
     this.on('resize', self.resize, self);
@@ -381,9 +381,10 @@ H5P.DragQuestion = (function ($) {
    * @param {String} type Class
    * @param {Number} id
    * @returns {jQuery}
-   */
+   */ 
   C.prototype.addElement = function (element, type, id) {
-    return $('<div class="h5p-' + type + '" style="left:' + element.x + '%;top:' + element.y + '%;width:' + element.width + 'em;height:' + element.height + 'em"></div>').appendTo(this.$container).data('id', id);
+     
+    return $('<div class="h5p-' + type+">"+"</div>").appendTo(this.$container).data('id', id);
   };
 
   /**
@@ -393,7 +394,7 @@ H5P.DragQuestion = (function ($) {
     var self = this;
     // Make sure we use all the height we can get. Needed to scale up.
     if (this.$container === undefined || !this.$container.is(':visible')) {
-      // Not yet attached or visible – not possible to resize correctly
+      // Not yet attached or visible – not possible to resize correctly
       return;
     }
 
@@ -704,8 +705,8 @@ H5P.DragQuestion = (function ($) {
 
         // Store position and drop zone.
         draggableAnswers.push({
-          x: Number(element.position.left.replace('%', '')),
-          y: Number(element.position.top.replace('%', '')),
+          //x: Number(element.position.left.replace('%', '')),
+          //y: Number(element.position.top.replace('%', '')),
           dz: element.dropZone
         });
       }
@@ -765,12 +766,12 @@ H5P.DragQuestion = (function ($) {
       // Set both color and gradient.
       C.setOpacity($element, 'backgroundColor', opacity);
       C.setOpacity($element, 'backgroundImage', opacity);
-      if (!opacity) {
-        $element.css({
-          "background-color": "rgba(245, 245, 245, 0)",
-          "background-image": "none"
-        });
-      }
+      if (!opacity) { 
+        $element.css({ 
+          "background-color": "rgba(245, 245, 245, 0)", 
+          "background-image": "none" 
+        }); 
+      } 
       return;
     }
 
@@ -883,10 +884,10 @@ H5P.DragQuestion = (function ($) {
       for (var i = 0; i < answers.length; i++) {
         self.elements.push({
           dropZone: answers[i].dz,
-          position: {
-            left: answers[i].x + '%',
-            top: answers[i].y + '%'
-          }
+//           position: {
+//             left: answers[i].x + '%',
+//             top: answers[i].y + '%'
+//           }
         });
       }
     }
@@ -942,11 +943,13 @@ H5P.DragQuestion = (function ($) {
     element.$ = $('<div/>', {
       class: 'h5p-draggable',
       css: {
-        left: self.x + '%',
-        top: self.y + '%',
-        width: self.width + 'em',
-        height: self.height + 'em'
+            margin:10
+//          left: self.x + '%',
+//          top: self.y + '%',
+//          width: self.width + 'em',
+//          height: self.height + 'em'
       },
+      
       appendTo: $container
     })
       .draggable({
@@ -955,8 +958,8 @@ H5P.DragQuestion = (function ($) {
           var $this = $(this);
 
           $this.removeClass('h5p-dropped').data("uiDraggable").originalPosition = {
-            top: self.y + '%',
-            left: self.x + '%'
+            //top: self.y + '%',
+            //left: self.x + '%'
           };
           C.setElementOpacity($this, self.backgroundOpacity);
           return !dropZone;
@@ -1066,8 +1069,8 @@ H5P.DragQuestion = (function ($) {
 
         //Revert the button to initial position and then remove it.
         element.animate({
-          left: self.x + '%',
-          top: self.y + '%'
+//           left: self.x + '%',
+//           top: self.y + '%'
         }, function () {
           //Remove the draggable if it is an infinity draggable.
           if (self.multiple) {
@@ -1276,9 +1279,9 @@ H5P.DragQuestion = (function ($) {
     var $dropZone = $('<div/>', {
       class: 'h5p-dropzone' + extraClass,
       css: {
-        left: self.x + '%',
+        //left: self.x + '%',
         top: self.y + '%',
-        width: self.width + 'em',
+        width: 50 + '%',
         height: self.height + 'em'
       },
       html: html
