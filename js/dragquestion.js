@@ -765,12 +765,6 @@ H5P.DragQuestion = (function ($) {
       // Set both color and gradient.
       C.setOpacity($element, 'backgroundColor', opacity);
       C.setOpacity($element, 'backgroundImage', opacity);
-      if (!opacity) {
-        $element.css({
-          "background-color": "rgba(245, 245, 245, 0)",
-          "background-image": "none"
-        });
-      }
       return;
     }
 
@@ -942,10 +936,10 @@ H5P.DragQuestion = (function ($) {
     element.$ = $('<div/>', {
       class: 'h5p-draggable',
       css: {
-        left: self.x + '%',
+        //left: self.x + '%',
         top: self.y + '%',
-        width: self.width + 'em',
-        height: self.height + 'em'
+        width: 40 + '%',
+        //height: self.height + 'em'
       },
       appendTo: $container
     })
