@@ -35,7 +35,7 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
 
 .h5p-dragquestion .h5p-static {
   background: #fff;
-  position: absolute;
+  ;
   z-index: 1;
 }
 

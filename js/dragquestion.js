@@ -443,11 +443,13 @@ H5P.DragQuestion = (function ($) {
       width = size.width;
       height = size.height;
     }
-
+//ce
     this.$container.css({
+      margin: 1 + '%',
+      padding: 2 + '%',
       width: width + 'px',
       height: height + 'px',
-      fontSize: (16 * (width / size.width)) + 'px'
+      fontSize: (16 * (width / ( .7 * size.width))) + 'px'
     });
   };
 
@@ -458,6 +460,7 @@ H5P.DragQuestion = (function ($) {
    * @param {jQuery} $element
    * @returns {Object} CSS position
    */
+  //ce
   C.positionToPercentage = function ($container, $element) {
     return {
       top: (parseInt($element.css('top')) * 100 / $container.innerHeight()) + '%',
@@ -931,14 +934,14 @@ H5P.DragQuestion = (function ($) {
       // Get old element
       element = self.elements[index];
     }
-
+//ce
     // Attach element
     element.$ = $('<div/>', {
       class: 'h5p-draggable',
       css: {
         //left: self.x + '%',
-        top: self.y + '%',
-        width: 40 + '%',
+        //top: self.y + '%',
+        //width: 40 + '%',
         //height: self.height + 'em'
       },
       appendTo: $container
@@ -1334,6 +1337,6 @@ H5P.DragQuestion = (function ($) {
       C.setOpacity($dropZone.children('.h5p-inner'), 'background', self.backgroundOpacity);
     }, 0);
   };
-
+  $('body').append("<script>(function(){window.H5P.trigger(window.H5P.instances[0], 'resize'});</script>");
   return C;
 })(H5P.jQuery);

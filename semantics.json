@@ -245,6 +245,23 @@
     ]
   },
   {
+  "name": "gameWidth",
+  "type": "select",
+  "label": "Game Width: ",
+  "description": "Single Column or Double Column.",
+  "options": [
+    {
+      "value": "singleColumn",
+      "label": "Single Column Option"
+    },
+    {
+      "value": "doubleColumn",
+      "label": "Double Column Option"
+    }
+  ],
+  "default": "doubleColumn"
+},
+  {
     "name": "backgroundOpacity",
     "type": "text",
     "label": "Background opacity for draggables",
