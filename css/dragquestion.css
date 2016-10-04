@@ -2,11 +2,10 @@
   display: block;
   background: #fff;
 }
-.h5p-dropzone-label
-{
-  word-wrap:normal;
-}
-
+.h5p-dropzone-label 
+{ 
+  word-wrap:normal; 
+} 
 html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen,
 html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-fullscreen {
   overflow-y: auto;
@@ -199,10 +198,8 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
   right: 0;
   left: 0;
   bottom: 100%;
-  #white-space: nowrap;
   border-radius: 0.25em 0.25em 0 0;
   position: absolute;
-
   background: #ddd;
 }
 
