@@ -54,6 +54,23 @@
             "description": "Optional. Select an image to use as background for your drag and drop task."
           },
           {
+  "name": "gameMode",
+  "type": "select",
+  "label": "Game Mode: ",
+  "description": "Single drop zone option will set the dropzone equal to the sum total height of all draggables.",
+  "options": [
+    {
+      "value": "singleDZ",
+      "label": "Single Drop Zone"
+    },
+    {
+      "value": "multipleDZ",
+      "label": "Multiple Drop Zones"
+    }
+  ],
+  "default": "multipleDZ"
+  },
+          {
             "name": "size",
             "type": "group",
             "widget": "dimensions",
@@ -244,23 +261,6 @@
       }
     ]
   },
-  {
-  "name": "gameWidth",
-  "type": "select",
-  "label": "Game Width: ",
-  "description": "Single Column or Double Column.",
-  "options": [
-    {
-      "value": "singleColumn",
-      "label": "Single Column Option"
-    },
-    {
-      "value": "doubleColumn",
-      "label": "Double Column Option"
-    }
-  ],
-  "default": "doubleColumn"
-},
   {
     "name": "backgroundOpacity",
     "type": "text",
