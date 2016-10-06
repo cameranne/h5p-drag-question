@@ -31,12 +31,14 @@ H5P.DragQuestion = (function ($) {
           size: {
             width: 620,
             height: 310
-          }
+          
         },
+         gameMode: 'multipleDZ' //Added by SUPRIYA RAJGOPAL
+      },
         task: {
           elements: [],
           dropZones: []
-        }
+        },
       },
       behaviour: {
         enableRetry: true,
@@ -480,7 +482,7 @@ H5P.DragQuestion = (function ($) {
 
   /**
    * Enables all draggables.
-   * @public
+percentage   * @public
    */
   C.prototype.enableDraggables = function () {
 
@@ -1276,7 +1278,7 @@ H5P.DragQuestion = (function ($) {
         left: self.x + '%',
         top: self.y + '%',
         width: self.width + 'em',
-        height: self.height + 'em'
+        height: self.height + 'px'
       },
       html: html
     })
