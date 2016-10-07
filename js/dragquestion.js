@@ -298,8 +298,17 @@ H5P.DragQuestion = (function ($) {
       }
     }
 
+    //if there is only one drop zone we need to set the height of drop zone to match the height of draggables arrangment.
+    console.log("length of dropZones array: " + this.dropZones.length);
+    console.log("drop zone object: " + this.dropZones);
+    console.log("Container Height: " + this.$container.height);
+    if (this.dropZones.length===1){
+      this.dropZones[0].height=20;
+
+    }
     // Attach drop zones
     for (i = 0; i < this.dropZones.length; i++) {
+      console.log("drop zone object: " + this.dropZones[i]);
       this.dropZones[i].appendTo(this.$container, this.draggables);
     }
     return this.$container;
