@@ -163,8 +163,9 @@ H5P.DragQuestion = (function ($) {
 
     // Set class if no background
     var contentClass = this.options.question.settings.background !== undefined ? '' : 'h5p-dragquestion-has-no-background';
-
-    // Register task content area
+    
+   
+        // Register task content area
     self.setContent(self.createQuestionContent(), {
       'class': contentClass
     });
@@ -306,9 +307,23 @@ H5P.DragQuestion = (function ($) {
       this.dropZones[0].height=20;
 
     }
+     var gameMode = this.options.question.settings.gameMode;
+        console.log(gameMode + "  is the current game mode**********");
+      
+      if(gameMode==='singleDZ'){
+        //ce
+        //set height of only dropZone to match the height of the arrangement of draggable elements.
+        //this.options.question.task.dropZones[0].height=600;
+        console.log("Drop Zone Height reset to : "+this.options.question.task.dropZones[0].height);
+        }
+
     // Attach drop zones
     for (i = 0; i < this.dropZones.length; i++) {
-      console.log("drop zone object: " + this.dropZones[i]);
+      if(gameMode==='singleDZ' && i===0){
+      //this.dropZones[0].height=600;
+      console.log("****The single Drop Zone's Height was set to: " + this.options.question.task.dropZones[0].height);
+      }
+      console.log("drop zone object height: " + this.dropZones[0].height);
       this.dropZones[i].appendTo(this.$container, this.draggables);
     }
     return this.$container;
@@ -394,7 +409,7 @@ H5P.DragQuestion = (function ($) {
    * @returns {jQuery}
    */
   C.prototype.addElement = function (element, type, id) {
-    return $('<div class="h5p-' + type + '" style="left:' + element.x + '%;top:' + element.y + '%;width:' + element.width + 'em;height:' + element.height + 'em"></div>').appendTo(this.$container).data('id', id);
+    return $('<div class="h5p-' + type + 'gameMode" style="left:' + element.x + '%;top:' + element.y + '%;width:' + element.width + 'em;height:' + element.height + 'em"></div>').appendTo(this.$container).data('id', id);
   };
 
   /**
