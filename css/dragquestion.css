@@ -1,6 +1,15 @@
-.gameMode{
-  background-color:red;
+.singleDZGameModeDropZoneCSS{
+
+ margin-top:11%;
+ color:red;
+ height:75%;
   
+}
+.multipleDZGameModeDropZoneCSS{
+  
+color:blue;
+height:75%;
+
 }
 .h5p-dragquestion {
   display: block;
