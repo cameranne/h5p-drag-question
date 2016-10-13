@@ -1330,14 +1330,14 @@ percentage   * @public
 //                     $(this).addClass(multipleDZGameMode);
 //                     $(this).removeClass(singleDZGameMode);
 //                     }
-
+///jquery chaining events
     // Create drop zone element
     var $dropZone = $('<div/>', {
       class: gameModeClass,
       css: {
-        left: self.x + '%',
-        top: self.y + '%',
-        width: self.width + 'em',
+        //left: self.x + '%',
+        //top: self.y + '%',
+        //width: self.width + 'em',
         //height: self.height + 'px'
       },
       html: html
