@@ -969,14 +969,16 @@ percentage   * @public
       // Get old element
       element = self.elements[index];
     }
+//draggable 
+var elxDraggableClass = 'h5p-draggable elxDraggableClass';
 //ce
     // Attach element
     element.$ = $('<div/>', {
-      class: 'h5p-draggable',
+      class:elxDraggableClass,
       css: {
         //left: self.x + '%',
-        top: self.y + '%',
-        width: 40 + '%',
+        //top: self.y + '%',
+        //width: 40 + '%',
         height: self.height + 'em'
       },
       appendTo: $container
@@ -1307,7 +1309,7 @@ percentage   * @public
     }
 
 //ce
-    // at some point will write conditional statement similar to the if statement below
+    // at some point will write a conditional statement similar to the if statement below
     // that evaluates mode and change the gameModeClass variable accordingly.
     // gameModeClass is already being used elsewhere to hold the class information
     // for the dropZone(s)
