@@ -1,20 +1,23 @@
+.elxDraggableClassSingleDZ{
+  width:100%;
+}
 .elxDraggableClass{
   width:40%;
-  top-margin:10%;
+  
 }
 .singleDZGameModeDropZoneCSS{
-
+display:block;
  margin-top:11%;
  color:red;
  height:75%;
- width:50%;
- top: 10%;
- left: 50%; 
+ width:100%;
+ position:relative;
 }
 .multipleDZGameModeDropZoneCSS{
   
 color:blue;
 height:75%;
+width:40%;
 
 }
 .h5p-dragquestion {
@@ -80,7 +83,7 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
   border: 0.1em solid #c6c6c6;
   overflow: hidden;
   cursor: pointer;
-  position: absolute;
+  position: relative;
   text-align: center;
   padding: 0.3em 0.3em;
   line-height: 1.25em;

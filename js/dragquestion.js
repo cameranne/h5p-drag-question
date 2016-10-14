@@ -48,6 +48,18 @@ H5P.DragQuestion = (function ($) {
         showSolutionsRequiresInput: true
       }
     }, options);
+    //variables storing the string to apply respective classes to draggable elements
+    elxDraggableClass = 'elxDraggableClassSingleDZ h5p-draggable' ;
+    elxDraggableClassSingleDZMode = 'elxDraggableClassSingleDZ h5p-draggable';
+    
+    gameMode = this.options.question.settings.gameMode;
+    
+    if(gameMode == 'singleDZ'){
+      elxDraggableClass = elxDraggableClassSingleDZMode;
+    }
+    if(gameMode == 'multipleDZ'){
+      elxDraggableClass = 'elxDraggableClassSingleDZ h5p-draggable' ;
+    }
 
     this.draggables = [];
     this.dropZones = [];
@@ -301,9 +313,9 @@ H5P.DragQuestion = (function ($) {
     }
 
     //if there is only one drop zone we need to set the height of drop zone to match the height of draggables arrangment.
-    console.log("length of dropZones array: " + this.dropZones.length);
-    console.log("drop zone object: " + this.dropZones);
-    console.log("Container Height: " + this.$container.height);
+//     console.log("length of dropZones array: " + this.dropZones.length);
+//     console.log("drop zone object: " + this.dropZones);
+//     console.log("Container Height: " + this.$container.height);
     if (this.dropZones.length===1){
       //this.dropZones[0].height=20;
     gameMode = this.options.question.settings.gameMode;
@@ -317,20 +329,20 @@ H5P.DragQuestion = (function ($) {
         // switch class to singleDZGameMode
         //$('whateverweusefortheselector').addClass('singleDZGameMode');  
        
-       this.options.question.task.dropZones[0].height = 600;
-       console.log("Drop Zone Height reset to : " + this.options.question.task.dropZones[0].height);
+       //this.options.question.task.dropZones[0].height = 600;
+       //console.log("Drop Zone Height reset to : " + this.options.question.task.dropZones[0].height);
 
         }
 
     // Attach drop zones
     for (i = 0; i < this.dropZones.length; i++) {
       if(gameMode =='singleDZ' && i===0){
-              this.dropZones[0].height=601;
-              console.log("gameMode : " + gameMode);
+              //this.dropZones[0].height=601;
+              //console.log("gameMode : " + gameMode);
 
-      console.log("****The single Drop Zone's Height was set to: " + this.dropZones[0].height);
+      //console.log("****The single Drop Zone's Height was set to: " + this.dropZones[0].height);
       }
-      console.log("drop zone object height: " + this.dropZones[0].height);
+      //console.log("drop zone object height: " + this.dropZones[0].height);
 
       this.dropZones[i].appendTo(this.$container, this.draggables);
     }
@@ -970,14 +982,14 @@ percentage   * @public
       element = self.elements[index];
     }
 //draggable 
-var elxDraggableClass = 'h5p-draggable elxDraggableClass';
-//ce
+
+//
     // Attach element
     element.$ = $('<div/>', {
-      class:elxDraggableClass,
+      class: elxDraggableClassSingleDZMode,
       css: {
         //left: self.x + '%',
-        //top: self.y + '%',
+        top: self.y + '%',
         //width: 40 + '%',
         height: self.height + 'em'
       },
@@ -1283,8 +1295,6 @@ var elxDraggableClass = 'h5p-draggable elxDraggableClass';
     self.y = dropZone.y;
     self.width = dropZone.width;
     self.height = dropZone.height;
-          console.log("dropzone 'self.height'" + self.height);
-
     self.backgroundOpacity = dropZone.backgroundOpacity;
     self.tip = dropZone.tip;
     self.single = dropZone.single;
