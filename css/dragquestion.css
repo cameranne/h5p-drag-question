@@ -1,8 +1,38 @@
+.elxDraggableClass{
+  width:50%;
+  font-size:20px;
+  height:15%;
+  margin-top:5%;
+  
+  
+
+}
+.multipleDZGameModeDropZoneCSS{
+  
+color:blue;
+ height:40%;
+ width:50%;
+ top:11%;
+ left: 50%;
+
+}
+.singleDZGameModeDropZoneCSS{
+
+ color:red;
+ height:40%;
+ width:40%;
+ top: 70%;
+ left: 50%; 
+}
+
 .h5p-dragquestion {
   display: block;
   background: #fff;
 }
-
+.h5p-dropzone-label 
+{ 
+  word-wrap:normal; 
+} 
 html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen,
 html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-fullscreen {
   overflow-y: auto;
@@ -32,7 +62,7 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
 
 .h5p-dragquestion .h5p-static {
   background: #fff;
-  position: absolute;
+  ;
   z-index: 1;
 }
 
@@ -49,7 +79,7 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
 .h5p-dragquestion .h5p-static > p {
   margin: 0;
   padding: 0;
-  font-size: 1em;
+  font-size: 2em;
   line-height: 1.25em;
 }
 
@@ -182,7 +212,6 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
 
 .h5p-dragquestion .h5p-dropzone > .h5p-inner.h5p-active {
   padding: 0;
-  border: 0.1em dashed #666;
 }
 
 .h5p-dragquestion .h5p-dropzone > .h5p-inner.h5p-over {
@@ -195,10 +224,8 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
   right: 0;
   left: 0;
   bottom: 100%;
-  white-space: nowrap;
   border-radius: 0.25em 0.25em 0 0;
   position: absolute;
-
   background: #ddd;
 }
 
@@ -208,7 +235,7 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
   margin-top: 0.125em;
   right: 0;
   padding: 0.25em 0.625em;
-  font-size: 0.625em;
+  font-size: 0.5em;
   line-height: 100%;
 
   border-radius: 0.25em;

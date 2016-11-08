@@ -16,6 +16,7 @@ H5P.DragQuestion = (function ($) {
    * @param {Number} id Content identification
    */
   function C(options, contentId, contentData) {
+
     var self = this;
     var i, j;
     this.id = this.contentId = contentId;
@@ -31,12 +32,14 @@ H5P.DragQuestion = (function ($) {
           size: {
             width: 620,
             height: 310
-          }
+          
         },
+         gameMode: 'multipleDZ' //Added by SUPRIYA RAJGOPAL
+      },
         task: {
           elements: [],
           dropZones: []
-        }
+        },
       },
       behaviour: {
         enableRetry: true,
@@ -45,11 +48,15 @@ H5P.DragQuestion = (function ($) {
         showSolutionsRequiresInput: true
       }
     }, options);
-
     this.draggables = [];
     this.dropZones = [];
     this.answered = (contentData && contentData.previousState !== undefined && contentData.previousState.answers !== undefined && contentData.previousState.answers.length);
     this.blankIsCorrect = true;
+    
+    lengthOfDraggablesArray = this.options.question.task.elements.length;
+    console.log("length of draggables array: " + lengthOfDraggablesArray);    
+
+    console.log("lengthOfDraggablesArray "+ lengthOfDraggablesArray);
 
     this.backgroundOpacity = (this.options.backgroundOpacity === undefined || this.options.backgroundOpacity.trim() === '') ? undefined : this.options.backgroundOpacity;
 
@@ -91,10 +98,19 @@ H5P.DragQuestion = (function ($) {
       if (contentData && contentData.previousState !== undefined && contentData.previousState.answers !== undefined && contentData.previousState.answers[i] !== undefined) {
         answers = contentData.previousState.answers[i];
       }
-
+      numberOfDraggables = this.draggables.length;
+      lengthOfDraggablesArray = this.options.question.task.elements.length;
+      
       // Create new draggable instance
-      this.draggables[i] = new Draggable(element, i, answers);
+      this.draggables[i] = new Draggable(element, i, answers, lengthOfDraggablesArray);
+    
+      this.draggables.forEach(function (draggable) {
+        
+   
+    });
+
       this.draggables[i].on('interacted', function () {
+
         self.answered = true;
         self.triggerXAPIScored(self.getScore(), self.getMaxScore(), 'interacted');
       });
@@ -108,6 +124,7 @@ H5P.DragQuestion = (function ($) {
     this.numDropZonesWithoutElements = 0;
 
     // Add drop zones
+    // console.log("length of 'elements' array: " + task.elements.length);
     for (i = 0; i < task.dropZones.length; i++) {
       var dropZone = task.dropZones[i];
 
@@ -161,8 +178,9 @@ H5P.DragQuestion = (function ($) {
 
     // Set class if no background
     var contentClass = this.options.question.settings.background !== undefined ? '' : 'h5p-dragquestion-has-no-background';
-
-    // Register task content area
+    
+   
+        // Register task content area
     self.setContent(self.createQuestionContent(), {
       'class': contentClass
     });
@@ -190,6 +208,7 @@ H5P.DragQuestion = (function ($) {
     // Add sources, i.e. draggables
     definition.source = [];
     for (var i = 0; i < this.options.question.task.elements.length; i++) {
+     
       var el = this.options.question.task.elements[i];
       if (el.dropZones && el.dropZones.length) {
         var desc = el.type.params.alt ? el.type.params.alt : el.type.params.text;
@@ -295,12 +314,47 @@ H5P.DragQuestion = (function ($) {
         timedOutOpacity($element, element);
       }
     }
+//     newY = 3.333;
+//         for(var i =0; i<this.draggables.length; i++){
+//           divisor = 100 / this.draggables.length;
+//           this.draggables[i].height = 7;
+//           this.draggables[i].y = newY;
+//           this.draggables[i].height = divisor;
+
+//           newY += divisor/3;
+//           // console.log("Draggable Y pos: " + this.draggables[i].y);
+
+//         }
+
+
+
+    if (this.dropZones.length===1){
+      //this.dropZones[0].height=20;
+    gameMode = this.options.question.settings.gameMode;
+   
+   
+    }
+        // console.log( gameMode + "  is the current game mode**********");
+      
+      if(gameMode == 'singleDZ'){
+       
+       // console.log("Drop Zone Height reset to : " + this.options.question.task.dropZones[0].height);
+
+        }
 
     // Attach drop zones
     for (i = 0; i < this.dropZones.length; i++) {
+      if(gameMode =='singleDZ' && i===0){
+              // console.log("gameMode : " + gameMode);
+
+      //// console.log("****The single Drop Zone's Height was set to: " + this.dropZones[0].height);
+      }
+      // console.log("drop zone object height: " + this.dropZones[0].height);
+
       this.dropZones[i].appendTo(this.$container, this.draggables);
     }
     return this.$container;
+    // console.log("container"+$container);
   };
 
   C.prototype.registerButtons = function () {
@@ -383,14 +437,14 @@ H5P.DragQuestion = (function ($) {
    * @returns {jQuery}
    */
   C.prototype.addElement = function (element, type, id) {
-    return $('<div class="h5p-' + type + '" style="left:' + element.x + '%;top:' + element.y + '%;width:' + element.width + 'em;height:' + element.height + 'em"></div>').appendTo(this.$container).data('id', id);
+    return $('<div class="h5p-' + type + '" ></div>').appendTo(this.$container).data('id', id);
   };
 
   /**
    * Set correct height of container
    */
   C.prototype.resize = function (e) {
-    var self = this;
+    var self = this 
     // Make sure we use all the height we can get. Needed to scale up.
     if (this.$container === undefined || !this.$container.is(':visible')) {
       // Not yet attached or visible – not possible to resize correctly
@@ -443,11 +497,12 @@ H5P.DragQuestion = (function ($) {
       width = size.width;
       height = size.height;
     }
-
+//ce
     this.$container.css({
+      
       width: width + 'px',
       height: height + 'px',
-      fontSize: (16 * (width / size.width)) + 'px'
+      fontSize: 10 * width / size.width + 'px'
     });
   };
 
@@ -458,6 +513,7 @@ H5P.DragQuestion = (function ($) {
    * @param {jQuery} $element
    * @returns {Object} CSS position
    */
+  //ce
   C.positionToPercentage = function ($container, $element) {
     return {
       top: (parseInt($element.css('top')) * 100 / $container.innerHeight()) + '%',
@@ -477,7 +533,7 @@ H5P.DragQuestion = (function ($) {
 
   /**
    * Enables all draggables.
-   * @public
+percentage   * @public
    */
   C.prototype.enableDraggables = function () {
 
@@ -765,12 +821,6 @@ H5P.DragQuestion = (function ($) {
       // Set both color and gradient.
       C.setOpacity($element, 'backgroundColor', opacity);
       C.setOpacity($element, 'backgroundImage', opacity);
-      if (!opacity) {
-        $element.css({
-          "background-color": "rgba(245, 245, 245, 0)",
-          "background-image": "none"
-        });
-      }
       return;
     }
 
@@ -857,16 +907,117 @@ H5P.DragQuestion = (function ($) {
    * @param {number} id
    * @param {array} [answers] from last session
    */
-  function Draggable(element, id, answers) {
-    var self = this;
-    H5P.EventDispatcher.call(this);
+   
+  function Draggable(element, id, answers, numberOfDraggables) {
+  // this function gets called once for each draggable element in the game.
 
+  var self = this;
+  // if window width is less than 300px then don't render the game.  
+  
+    if($(window).width() < 300){
+    console.log("window width: " + $(window).width());
+    alert("Your device is too small");
+    return;
+    }
+
+   if ($(window).width() < 600) {
+          
+          spaceAvailable = numberOfDraggables;
+
+          console.log("screen width: " + $(window).width());
+          spaceCalculator = 1;
+           
+          console.log("element height: " + element.height);
+          dynamicYOffset = 1;
+
+          setDraggablesSizeAndPosition(spaceAvailable, dynamicYOffset);
+  }
+  else {
+      spaceAvailable = numberOfDraggables;
+
+      console.log("screen width: " + $(window).width());
+      console.log("spaceAvailable variable value: " + spaceAvailable);
+      spaceCalculator = spaceAvailable / numberOfDraggables; 
+      // dynamicYOffset holds value to offset and provide proper spacing between draggable elements.
+       
+      dynamicYOffset = 1;
+      setDraggablesSizeAndPosition(spaceAvailable, dynamicYOffset);
+  }
+
+  //the purpose of the following function is to set each draggable element's height and 'Y' position. 
+  
+
+
+  function setDraggablesSizeAndPosition(spaceAvailable, dynamicYOffset){
+  console.log("setDraggablesSizeAndPosition function called...");
+
+  // check if it's the first element...first element(id=0)
+  // first element will go at the top 'Y' position should be zero
+
+
+    if(id == 0)
+    {                    
+
+      element.height = (numberOfDraggables*10)/spaceAvailable;
+          //the dynamicPositionArray will hold the values of the draggable elements y position.
+          dynamicPositionArray=[];
+      
+      //variable holds the value of the current draggable element's y position.
+          dynamicPosition = 0;
+          //element.height = spaceAvailable ;
+          console.log("spaceAvailable: " + spaceAvailable);
+
+          // console.log("dynamicPosition Variable : " + dynamicPosition);
+          console.log("element " + (id+1) + " height : " + element.height);
+
+
+           dynamicPositionArray.push(dynamicPosition);//currently 0;
+           console.log("dynamicPositionArray[" + id + "] = " + dynamicPositionArray[id]);
+           dynamicPosition = spaceAvailable;// currently 3;
+           draggablesTotalHeight = element.height;
+
+    }
+
+    if(id > 0)
+    {     
+          element.height = (numberOfDraggables*10)/spaceAvailable;
+          // dynamicPosition holds the value for the current element's height combine with the previous element's position plus an offset
+          // to provide space between the elements.
+          dynamicPosition = element.height + dynamicPositionArray[id-1] + dynamicYOffset;
+          console.log("*********************************************");
+          console.log("element " + (id+1)+ " height : " + element.height);
+          console.log("position of last element stored in dynamicPositionArray[id-1] : " + dynamicPositionArray[id-1]);
+
+          console.log("dynamicPosition : " + dynamicPosition);
+          console.log("dynamicYOffset :  " +  dynamicYOffset);
+
+          dynamicPositionArray.push(dynamicPosition);
+          console.log("dynamicPositionArray" +"["+id+"] = " + dynamicPositionArray[id]);
+          dynamicPosition = dynamicPositionArray[id];
+          console.log("element " + id + " height: " + element.height);
+          draggablesTotalHeight += element.height;
+
+
+    }
+
+  }
+
+    
+
+    H5P.EventDispatcher.call(this);
     self.$ = $(self);
     self.id = id;
+
     self.elements = [];
+    
     self.x = element.x;
-    self.y = element.y;
-    self.width = element.width;
+    element.y = dynamicPositionArray[id];
+    self.y =  element.y;
+
+
+
+
+    self.width = element.width; 
     self.height = element.height;
     self.backgroundOpacity = element.backgroundOpacity;
     self.dropZones = element.dropZones;
@@ -878,7 +1029,6 @@ H5P.DragQuestion = (function ($) {
         // Add base element
         self.elements.push({});
       }
-
       // Add answers
       for (var i = 0; i < answers.length; i++) {
         self.elements.push({
@@ -923,6 +1073,8 @@ H5P.DragQuestion = (function ($) {
    * @param {Number} contentId
    * @returns {undefined}
    */
+
+   top = 0;
   Draggable.prototype.attachElement = function (index, $container, contentId) {
     var self = this;
 
@@ -937,15 +1089,23 @@ H5P.DragQuestion = (function ($) {
       // Get old element
       element = self.elements[index];
     }
+//draggable 
+elxDraggableClass = 'h5p-draggable elxDraggableClass';
+// ce
+// console.log("how many times does this mesaage appear?");
+// top = this.y + '%';
+console.log('self.y : '+ self.y);
+
+console.log('self.height : '+ self.height);
 
     // Attach element
     element.$ = $('<div/>', {
-      class: 'h5p-draggable',
+      class:elxDraggableClass,
       css: {
-        left: self.x + '%',
+        //left: self.x + '%',
         top: self.y + '%',
-        width: self.width + 'em',
-        height: self.height + 'em'
+        //width: 40 + '%',
+        height: self.height + '%',
       },
       appendTo: $container
     })
@@ -1249,6 +1409,8 @@ H5P.DragQuestion = (function ($) {
     self.y = dropZone.y;
     self.width = dropZone.width;
     self.height = dropZone.height;
+          // console.log("dropzone 'self.height'" + self.height);
+
     self.backgroundOpacity = dropZone.backgroundOpacity;
     self.tip = dropZone.tip;
     self.single = dropZone.single;
@@ -1272,14 +1434,27 @@ H5P.DragQuestion = (function ($) {
       extraClass = ' h5p-has-label';
     }
 
-    // Create drop zone element
+
+    if(gameMode=="singleDZ"){
+     var gameModeClass = 'h5p-dropzone' + extraClass + ' singleDZGameModeDropZoneCSS';
+       dropZoneHeight =   100*(numberOfDraggables*.1);
+
+    }
+    if(gameMode=="multipleDZ"){
+      numberOfDropZones=1;  //delete this.....just for testing.....
+       gameModeClass = 'h5p-dropzone' + extraClass + ' multipleDZGameModeDropZoneCSS';
+       dropZoneHeight =   100*(numberOfDraggables*.1);
+       console.log("DropZone Height : " + dropZoneHeight);
+
+    } 
+    
     var $dropZone = $('<div/>', {
-      class: 'h5p-dropzone' + extraClass,
+      class: gameModeClass,
       css: {
-        left: self.x + '%',
-        top: self.y + '%',
-        width: self.width + 'em',
-        height: self.height + 'em'
+        //left: self.x + '%',
+        top: dynamicPositionArray[1] + '%',
+        //width: self.width + 'em',
+        height: dropZoneHeight + '%'
       },
       html: html
     })
@@ -1306,6 +1481,7 @@ H5P.DragQuestion = (function ($) {
                   break;
                 }
               }
+               
             }
 
             if (element === undefined) {
@@ -1340,6 +1516,5 @@ H5P.DragQuestion = (function ($) {
       C.setOpacity($dropZone.children('.h5p-inner'), 'background', self.backgroundOpacity);
     }, 0);
   };
-
   return C;
 })(H5P.jQuery);
