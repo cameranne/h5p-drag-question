@@ -181,8 +181,7 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
 }
 
 .h5p-dragquestion .h5p-dropzone > .h5p-inner.h5p-active {
-  padding: 0;
-  border: 0.1em dashed #666;
+ 
 }
 
 .h5p-dragquestion .h5p-dropzone > .h5p-inner.h5p-over {
